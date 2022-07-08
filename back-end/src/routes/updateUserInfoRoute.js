@@ -53,15 +53,17 @@ export const updateUserInfoRoute = {
           });
 
         const db = getDbConnection('react-auth-db');
-        const result = await db.collection(
-          'users'.findOneAndUpdate(
+        const result = await db
+          .collection('users')
+          .findOneAndUpdate(
             {
               _id: ObjectID(id),
             },
             { $set: { info: updates } },
             { returnOriginal: false }
-          )
-        );
+          );
+
+        console.log('result', result);
 
         const { email, isVerified, info } = result.value;
 
